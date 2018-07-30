@@ -8,11 +8,11 @@ opts = Trollop::options do
   opt :tasks, 'Display all tasks'
 end
 
-#ETrollop::die "need at least one options" if ARGV.empty?
+ETrollop::die "need at least one options" if ARGV.empty?
 
 p opts
 p opts[:tasks]
 
-if p opts[:tasks] == true
+if opts.has_key?[:tasks]
   tasks
 end
