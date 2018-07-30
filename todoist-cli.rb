@@ -5,7 +5,7 @@ def tasks
 end
 
 opts = Trollop::options do
-  opt :tasks, 'Display all tasks'
+  opt :tasks, 'タスク一覧を表示する'
 end
 
 Trollop::die "need at least one options" unless opts.values.any?
