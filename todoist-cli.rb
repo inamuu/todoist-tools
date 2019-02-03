@@ -2,10 +2,11 @@ require 'trollop'
 require 'dotenv'
 require 'net/http'
 require 'uri'
+require 'json'
 
 Dotenv.load
 
-def tasks
+def projects
   uri = URI.parse(ENV["apiurl"])
   request = Net::HTTP::Post.new(uri)
   request.set_form_data(
@@ -20,13 +21,14 @@ def tasks
   response = Net::HTTP.start(uri.hostname, uri.port, req_options) do | http |
     http.request(request)
   end
-  puts response.body
+
+  hash = JSON.parse(response.body,  symbolize_names: true)
+  hash[:projects].map { | hash | puts hash[:name] }
 end
 
 opts = Trollop::options do
-  opt :tasks, 'タスク一覧を表示する'
+  opt :projects, 'プロジェクト一覧を表示する'
 end
 
-Trollop::die "need at least one options" unless opts.values.any?
-
-tasks if opts[:tasks] == true
+Trollop::die "オプションを指定してください" unless opts.values.any?
+projects if opts[:projects] == true
