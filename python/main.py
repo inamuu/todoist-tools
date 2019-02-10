@@ -12,10 +12,8 @@ api = TodoistAPI(os.environ.get("APITOKEN"))
 api.sync()
 
 def projects():
-    #print(api.state['projects'])
-    json_dict = json.load(api.state['projects'])
-    print(json_dict)
-    #print('test{}'.format(json_dict['projects']))
+    list = api.state['projects']
+    print(list[0]['name'])
 
 def hellob():
     print("hello B")
