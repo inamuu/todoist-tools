@@ -1,2 +1,2 @@
-todoist
+todoist-python
 python-dotenv

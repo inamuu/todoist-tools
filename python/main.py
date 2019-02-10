@@ -1,13 +1,24 @@
 import sys
 import argparse
+import json
+import os
 from todoist.api import TodoistAPI
+from os.path import join, dirname
+from dotenv import load_dotenv
 
-def helloa():
-    print("hello A")
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+api = TodoistAPI(os.environ.get("APITOKEN"))
+api.sync()
+
+def projects():
+    #print(api.state['projects'])
+    json_dict = json.load(api.state['projects'])
+    print(json_dict)
+    #print('test{}'.format(json_dict['projects']))
 
 def hellob():
     print("hello B")
-
 
 def main():
   parser = argparse.ArgumentParser(
@@ -21,8 +32,8 @@ def main():
   subparsers = parser.add_subparsers(dest='[エラー内容] サブコマンド必須です。 -h, --help で確認してください。', title='subcomands')
   subparsers.required = True
   
-  parser_helloa = subparsers.add_parser('helloa', help='helloaだよ')
-  parser_helloa.set_defaults(fn=helloa)
+  parser_projects = subparsers.add_parser('projects', help='projectsだよ')
+  parser_projects.set_defaults(fn=projects)
   
   parser_hellob = subparsers.add_parser('hellob', help='hellobだよ')
   parser_hellob.set_defaults(fn=hellob)
