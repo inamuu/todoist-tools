@@ -13,7 +13,8 @@ api.sync()
 
 def projects():
     list = api.state['projects']
-    print(list[0]['name'])
+    for name in list:
+      print(name['name'])
 
 def hellob():
     print("hello B")
