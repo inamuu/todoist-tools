@@ -1,6 +1,5 @@
 import sys
 import argparse
-import json
 import os
 from todoist.api import TodoistAPI
 from os.path import join, dirname
