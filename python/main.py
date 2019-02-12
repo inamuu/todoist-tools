@@ -12,12 +12,14 @@ api = TodoistAPI(os.environ.get("APITOKEN"))
 api.sync()
 
 def projects():
-    list = api.state['projects']
-    for name in list:
-      print(name['name'])
+  list = api.state['projects']
+  for name in list:
+    print(name['name'])
 
-def hellob():
-    print("hello B")
+def tasks():
+  items = api.state['items']
+  for name in items:
+    print(name['content'])
 
 def main():
   parser = argparse.ArgumentParser(
@@ -34,8 +36,8 @@ def main():
   parser_projects = subparsers.add_parser('projects', help='projectsだよ')
   parser_projects.set_defaults(fn=projects)
   
-  parser_hellob = subparsers.add_parser('hellob', help='hellobだよ')
-  parser_hellob.set_defaults(fn=hellob)
+  parser_tasks = subparsers.add_parser('tasks', help='tasksだよ')
+  parser_tasks.set_defaults(fn=tasks)
 
   args = parser.parse_args()
   args.fn()
