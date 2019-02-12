@@ -19,7 +19,8 @@ def projects():
 def tasks():
   items = api.state['items']
   for name in items:
-    print(name['content'])
+    if name['project_id'] == 2190973782:
+      print(name['content'])
 
 def main():
   parser = argparse.ArgumentParser(
