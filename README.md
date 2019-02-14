@@ -3,7 +3,7 @@ Todoist-cli-tools
 
 ## Description
 
-Todoistを操作するCLIツール.
+Todoistを操作するCLIツール.
 
 ## Licence
 
