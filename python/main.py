@@ -11,7 +11,6 @@ api = TodoistAPI(os.environ.get("APITOKEN"))
 api.sync()
 
 def projects(args):
-  print(args)
   list = api.state['projects']
   for name in list:
     print(name['name'])
@@ -31,8 +30,8 @@ def main():
   )
   
   parser.add_argument('--version', action='version', version='%(prog)s 1.0')
-  parser.add_argument('-p', '--projects')
-  parser.add_argument('-t', '--tasks')
+  parser.add_argument('-p', '--projects', action='store_true')
+  parser.add_argument('-t', '--tasks', action='store_true')
   args = parser.parse_args()
 
   if args.projects: projects(args)
