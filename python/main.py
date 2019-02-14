@@ -31,7 +31,7 @@ def main():
   
   parser.add_argument('--version', action='version', version='%(prog)s 1.0')
   parser.add_argument('-p', '--projects', action='store_true')
-  parser.add_argument('-t', '--tasks', action='store_true')
+  parser.add_argument('-t', '--tasks', choices=['apple', 'banana', 'orange'])
   args = parser.parse_args()
 
   if args.projects: projects(args)
