@@ -12,13 +12,20 @@ api.sync()
 
 def projects():
   list = api.state['projects']
+  print('### プロジェクト一覧')
   for name in list:
     print(name['name'])
 
-def tasks():
+def tasks(args):
+  list = api.state['projects']
+  for projects_id in list:
+    if projects_id['name'] == args.tasks:
+      tasks_project_id = projects_id['id']
+
   items = api.state['items']
+  print('### タスク一覧')
   for name in items:
-    if name['project_id'] == 2190973782:
+    if name['project_id'] == tasks_project_id:
       print(name['content'])
 
 def main():
@@ -35,6 +42,6 @@ def main():
   args = parser.parse_args()
 
   if args.projects: projects()
-  if args.tasks: tasks()
+  if args.tasks: tasks(args)
 
 if __name__ == "__main__": main()
