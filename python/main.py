@@ -31,10 +31,12 @@ def tasks(args):
     sys.exit()
   
   items = api.state['items']
-  print('### タスク一覧')
+  print('### タスク一覧(id, 内容)')
   for name in items:
     if name['project_id'] == tasks_project_id:
-      print(name['content'])
+      taskid = name['id']
+      taskcontent = name['content']
+      print(str(taskid) + " : " + str(taskcontent))
 
 def main():
   parser = argparse.ArgumentParser(
