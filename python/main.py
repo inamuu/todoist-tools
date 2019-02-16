@@ -21,7 +21,15 @@ def tasks(args):
   for projects_id in list:
     if projects_id['name'] == args.tasks:
       tasks_project_id = projects_id['id']
+      break
 
+  ## 例外キャッチ: tasks_project_idがセットされていなければ終了する
+  try:
+    tasks_project_id
+  except NameError:
+    print("プロジェクト名が正しくありません。プロジェクト名を正しく入力してください。")
+    sys.exit()
+  
   items = api.state['items']
   print('### タスク一覧')
   for name in items:
@@ -37,8 +45,8 @@ def main():
   )
   
   parser.add_argument('-v', '--version', action='version', version='%(prog)s 1.0')
-  parser.add_argument('-p', '--projects', action='store_true', help='プロジェクト一覧を表示します')
-  parser.add_argument('-t', '--tasks', help='タスク一覧を表示します')
+  parser.add_argument('-p', '--projects', action='store_true', help='プロジェクト一覧を表示します。')
+  parser.add_argument('-t', '--tasks', help='タスク一覧を表示します。プロジェクト名を引数に指定します。')
   args = parser.parse_args()
 
   if args.projects: projects()
