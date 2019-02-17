@@ -1,4 +1,5 @@
 import argparse
+import io
 import json
 import os
 import requests
@@ -33,16 +34,21 @@ def tasks(args):
     sys.exit()
   
   items = api.state['items']
+  slackmessage = []
   print('### タスク一覧(id, 内容)')
   for name in items:
     if name['project_id'] == tasks_project_id:
       taskid = name['id']
       taskcontent = name['content']
-      print(str(taskid) + " : " + str(taskcontent))
+      message = (str(taskid) + " : " + str(taskcontent))
+      print(message)
+      slackmessage.append(taskcontent)
+  message = '\n'.join(slackmessage)
+  slack(message)
 
-def slack(args):
+def slack(message):
   requests.post((os.environ.get("SLACKAPI")), data = json.dumps({
-    'text': u'ここに標準出力を取得するなにかを定義する', # 投稿するテキスト
+    'text': "### タスク一覧\n" + message + "\n---\n", # 投稿するテキスト
     'username': u'bot', # 投稿のユーザー名
     'icon_emoji': u':ghost:', # 投稿のプロフィール画像に入れる絵文字
     'link_names': 1, # メンションを有効にする
